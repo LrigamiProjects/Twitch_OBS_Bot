@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 const { autoUpdater } = require('electron-updater');
 
-
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 950,
