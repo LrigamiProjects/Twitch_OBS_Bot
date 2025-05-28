@@ -36,94 +36,110 @@
 
 ## About the Project
 
-Petite description du projet
+**Twitch OBS Bot** est une mini-app Node.js qui permet à un streamer de déclencher des actions dans OBS Studio via des commandes de chat Twitch.  
+Ce projet automatise et rend interactif le livestream, sans avoir besoin d’un streamer expérimenté en développement.
+
+Fonctionnalités :
+- Connexion automatique à OBS via WebSocket
+- Écoute des messages du chat Twitch
+- Déclenchement d’événements (ex : changement de scène, activation de source, etc.)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Roadmap
 
-Checklist figurant la roadmap du projet (références aux issues)
+- [x] Connexion à Twitch via @twurple
+- [x] Connexion à OBS via obs-websocket-js
+- [x] Configuration JSON simple
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Get Started
 
-Entrez ici les instructions pour bien débuter avec votre projet...
+Voici comment configurer et lancer ce projet sur votre machine locale.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Prerequisites
 
-Ce qu'il est requis pour commencer avec votre projet...
-
-- Programme 1
-- Programme 2
-- etc...
+- [Node.js](https://nodejs.org/) (v18 ou + recommandé)
+- [OBS Studio](https://obsproject.com/) avec le plugin **obs-websocket** activé
+- Un compte Twitch
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Installation
 
-Les étapes pour installer votre programme....
+1. Cloner ce dépôt :
 
-Dites ce qu'il faut faire...
+```bash
+git clone https://github.com/ton-pseudo/twitch-obs-bot.git
+cd twitch-obs-bot
+```
 
-_exemple_: Executez la commande ``telnet mapscii.me`` pour commencer ensuite [...]
+2. Installer les dépendances :
 
+```bash 
+npm install
+```
 
-Ensuite vous pouvez montrer ce que vous obtenez au final...
+3. Copier le fichier de configuration 
+
+```bash
+cp config.example.json config.json
+```
+
+4. Modifier config.json avec vos identifiants Twitch et OBS. 
+
+Pour des raisons de sécurité, évitez de versionner vos données.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Launching
 
-Dites comment faire pour lancer votre projet
+Lancer le projet avec la commande
+
+```bash
+npm run start
+```
+
+Puis laissez-vous guider par le tutoriel intégré.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Built with
 
-Entrez les programmes/logiciels/ressources que vous avez utilisé pour développer votre projet
-
-_exemples :_
-* [Materialize.css](http://materializecss.com) - Framework CSS (front-end)
-* [Atom](https://atom.io/) - Editeur de textes
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Contributing
-
-Si vous souhaitez contribuer, lisez le fichier [CONTRIBUTING.md](https://example.org) pour savoir comment le faire.
+- Node.js
+- Twurple - pour interagir avec le chat Twitch
+- obs-websocket-js - pour contrôler OBS
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Versions
-Listez les versions ici 
-_exemple :_
-**Dernière version stable :** 5.0
-**Dernière version :** 5.1
-Liste des versions : [Cliquer pour afficher](https://github.com/your/project-name/tags)
-_(pour le lien mettez simplement l'URL de votre projets suivi de ``/tags``)_
+
+Dernière version stable : 1.0.0
+Liste des versions : [Cliquer pour afficher](https://github.com/LrigamiProjects/TTwitch_OBS_Bot/tags)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## License
 
-Ce projet est sous licence ``exemple: WTFTPL`` - voir le fichier [LICENSE.md](LICENSE.md) pour plus d'informations
+Ce projet est sous licence Unlicense, vous êtes libre de l'utiliser, modifier ou redistribuer sans restriction.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to.
+- ForTheBadge
+- OBS WebSocket
+- Twitch Token Generator
+- Twurple
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Authors
-Listez le(s) auteur(s) du projet ici !
-* **Jhon doe** _alias_ [@outout14](https://github.com/outout14)
 
-Lisez la liste des [contributeurs](https://github.com/your/project/contributors) pour voir qui à aidé au projet !
+- THIRY Prune alias @Lrigami
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -139,7 +155,7 @@ Lisez la liste des [contributeurs](https://github.com/your/project/contributors)
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://linkedin.com/in/prune-thiry-6886a6136/
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
