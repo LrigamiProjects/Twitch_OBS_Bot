@@ -2,6 +2,8 @@
     --twitch-color : #9046ff;
     --border-color: #0f094f;
     --white: #fff;
+    --grey: #eeeeee;
+    --robotic: "Tektur";
 }
 
 body { 
@@ -10,6 +12,11 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
+    background-color: var(--grey);
+}
+
+h1, #director, #production {
+    font-family: var(--robotic), Arial, Helvetica, sans-serif;
 }
 
 input, button, select { 
@@ -18,12 +25,14 @@ input, button, select {
 
 table { 
     width: 100%; 
-    margin-top: 15px; 
     border-collapse: collapse; 
 }
 
-td, th { 
-    border: 1px solid #ccc; 
+th:not(:last-of-type), td:not(:last-of-type) { 
+    border-right: 2px solid var(--border-color); 
+}
+
+th, td {
     padding: 8px; 
 }
 
@@ -34,5 +43,45 @@ td, th {
 img:first-of-type {
     position: absolute;
     right: 30px;
-    top: 30px;
+    top: 0px;
+    border-bottom: 3px solid var(--border-color);
+}
+
+img:last-of-type {
+    max-width: 900px;
+}
+
+#scenes {
+    max-width: 893px;
+    border: 3px solid var(--border-color);
+    position: relative;
+    top: -32px;
+    left: 1px;
+}
+
+#production, #director {
+    display: flex;
+    border-bottom: 3px solid var(--border-color);
+    margin: 0;
+    padding: 5px 0 5px 5px;
+}
+
+#add-scene {
+    border-top: 3px solid var(--border-color);
+}
+
+#add-scene button {
+    border: none;
+    background-color: transparent;
+    padding-right: 30px;
+    border-right: 3px solid var(--border-color);
+}
+
+#launch {
+    align-self: center;
+    width: 200px;
+    height: 50px;
+    background-color: #dac3fd;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
 }

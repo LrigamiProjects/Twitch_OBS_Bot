@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>Twitch OBS Bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -21,9 +24,9 @@
   </div>
 
   <img src="clapet.png" alt="clapet de cinéma">
-  <div>
-    <p>PRODUCTION</p>
-    <p>DIRECTOR</p>
+  <div id="scenes">
+    <p id="production">PRODUCTION</p>
+    <p id="director">DIRECTOR</p>
     <table id="sceneTable">
       <thead>
         <tr>
@@ -36,10 +39,12 @@
       <tbody id="sceneList"></tbody>
     </table>
 
-    <button style="cursor: pointer" id="addScene">Ajouter une scène</button>
+    <div id="add-scene">
+      <button style="cursor: pointer" id="addScene">AJOUTER</button>
+    </div>
   </div>
 
-    <button style="cursor: pointer" id="startBot">Lancer le bot</button>
+    <button id="launch" style="cursor: pointer" id="startBot">Lancer le bot</button>
 
   <script src="renderer.js"></script>
 </body>
