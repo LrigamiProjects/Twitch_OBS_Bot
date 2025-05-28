@@ -2,6 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self';
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;">
   <title>Twitch OBS Bot</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,12 +44,12 @@
       <tbody id="sceneList"></tbody>
     </table>
 
-    <div id="add-scene">
-      <button style="cursor: pointer" id="addScene">AJOUTER</button>
+    <div id="add-scene-btn">
+      <button id="addScene">AJOUTER</button>
     </div>
   </div>
 
-    <button id="launch" style="cursor: pointer" id="startBot">Lancer le bot</button>
+    <button id="startBot">Lancer le bot</button>
 
   <script src="renderer.js"></script>
 </body>
