@@ -1,6 +1,9 @@
 :root {
     --twitch-color : #9046ff;
+    --secondary-twitch-color: #dac3fd;
+    --secondary-twitch-color-hover: hsl(264, 94%, 80%);
     --border-color: #0f094f;
+    --secondary-border-color: hsl(245, 80%, 30%);
     --white: #fff;
     --grey: #eeeeee;
     --robotic: "Tektur";
@@ -19,8 +22,37 @@ h1, #director, #production {
     font-family: var(--robotic), Arial, Helvetica, sans-serif;
 }
 
+.infos {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.infos label {
+    max-width: 150px;
+}
+
+.infos input {
+    width: 230px;
+}
+
 input, button, select { 
     margin: 5px; 
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid var(--secondary-border-color);
+    border-radius: 5px;
+    height: 20px;
+}
+
+.last-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 table { 
@@ -55,7 +87,6 @@ img:last-of-type {
     max-width: 893px;
     border: 3px solid var(--border-color);
     position: relative;
-    top: -32px;
     left: 1px;
 }
 
@@ -71,6 +102,7 @@ img:last-of-type {
 }
 
 #add-scene-btn button {
+    font-weight: bold;
     border: none;
     background-color: transparent;
     padding-right: 30px;
@@ -78,12 +110,39 @@ img:last-of-type {
     cursor: pointer;
 }
 
+#add-scene-btn button:hover {
+    color: var(--twitch-color);
+}
+
+.delete {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    margin: 5px 0;
+}
+
+.delete span {
+    font-size: 24px;
+    color: var(--twitch-color);
+}
+
+.delete:hover span {
+    color: var(--secondary-twitch-color);
+}
+
 #startBot {
     align-self: center;
     width: 200px;
     height: 50px;
-    background-color: #dac3fd;
+    margin-top: 10px;
+    font-family: var(--robotic), Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    background-color: var(--secondary-twitch-color);
     border: 1px solid var(--border-color);
     border-radius: 10px;
     cursor: pointer;
+}
+
+#startBot:hover {
+    background-color: var(--secondary-twitch-color-hover);
 }
