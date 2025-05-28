@@ -35,12 +35,39 @@ function renderSceneTable() {
   config.scenes.forEach((scene, index) => {
     const tr = document.createElement("tr");
     tr.classList.add("scene-row");
-    tr.innerHTML = `
-      <td><input value="${scene.command}" onchange="updateScene(${index}, 'command', this.value)" /></td>
-      <td><input value="${scene.scene}" onchange="updateScene(${index}, 'scene', this.value)" /></td>
-      <td><input value="${scene.source}" onchange="updateScene(${index}, 'source', this.value)" /></td>
-      <td><button style="cursor: pointer" onclick="removeScene(${index})">🗑 Supprimer</button></td>
-    `;
+
+    const tdCommand = document.createElement("td");
+    const inputCommand = document.createElement("input");
+    inputCommand.value = scene.command;
+    inputCommand.addEventListener("input", (e) => updateScene(index, "command", e.target.value));
+    tdCommand.appendChild(inputCommand);
+
+    const tdScene = document.createElement("td");
+    const inputScene = document.createElement("input");
+    inputScene.value = scene.scene;
+    inputScene.addEventListener("input", (e) => updateScene(index, "scene", e.target.value));
+    tdScene.appendChild(inputScene);
+
+    const tdSource = document.createElement("td");
+    tdSource.classList.add("last-input");
+    const inputSource = document.createElement("input");
+    inputSource.value = scene.source;
+    inputSource.addEventListener("input", (e) => updateScene(index, "source", e.target.value));
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete";
+    deleteBtn.innerHTML = `<span class="material-symbols-outlined">delete</span>`;
+    deleteBtn.addEventListener("click", () => {
+      removeScene(index);
+    });
+
+    tdSource.appendChild(inputSource);
+    tdSource.appendChild(deleteBtn);
+
+    tr.appendChild(tdCommand);
+    tr.appendChild(tdScene);
+    tr.appendChild(tdSource);
+
     sceneList.appendChild(tr);
   });
 }
@@ -78,6 +105,7 @@ window.addEventListener("DOMContentLoaded", () => {
     await window.electronAPI.startBot(config);
     alert("Bot lancé ! Tapez une commande dans le chat.");
   });
+
 });
 
 loadConfig().then(() => {
