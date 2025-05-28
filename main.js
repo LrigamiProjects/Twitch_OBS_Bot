@@ -9,9 +9,9 @@ const createWindow = () => {
     width: 950,
     height: 800,
     webPreferences: {
-        preload: path.join(__dirname, 'renderer.js'),
-        nodeIntegration: true,
-        contextIsolation: false,
+        preload: path.join(__dirname, 'preload.js'),
+        nodeIntegration: false,
+        contextIsolation: true,
     }
   })
 

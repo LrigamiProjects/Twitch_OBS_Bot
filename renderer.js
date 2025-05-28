@@ -1,5 +1,3 @@
-const { ipcRenderer } = require("electron");
-
 let config = {
   clientId: "",
   oauth: "",
@@ -9,7 +7,7 @@ let config = {
 };
 
 async function loadConfig() {
-  const saved = await ipcRenderer.invoke("get-config");
+  const saved = await window.electronAPI.getConfig();
   if (saved) {
     config = saved;
     document.getElementById("channel").value = config.channel ?? "";
@@ -25,7 +23,7 @@ function setupAutoSave() {
     const input = document.getElementById(id);
     input.addEventListener("input", () => {
       config[id] = input.value;
-      ipcRenderer.invoke("save-config", config);
+      window.electronAPI.saveConfig(config);
     });
   });
 }
@@ -49,35 +47,37 @@ function renderSceneTable() {
 
 window.updateScene = (index, field, value) => {
   config.scenes[index][field] = value;
-  ipcRenderer.invoke("save-config", config);
+  window.electronAPI.saveConfig(config);
 };
 
 window.removeScene = (index) => {
   config.scenes.splice(index, 1);
-  ipcRenderer.invoke("save-config", config);
+  window.electronAPI.saveConfig(config);
   renderSceneTable();
 };
 
-document.getElementById("addScene").addEventListener("click", () => {
-  config.scenes.push({ command: "", scene: "", source: "" });
-  ipcRenderer.invoke("save-config", config);
-  renderSceneTable();
-});
+window.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("addScene").addEventListener("click", () => {
+    config.scenes.push({ command: "", scene: "", source: "" });
+    window.electronAPI.saveConfig(config);
+    renderSceneTable();
+  });
 
-document.getElementById("startBot").addEventListener("click", async () => {
-  config.channel = document.getElementById("channel").value;
-  config.clientId = document.getElementById("clientId").value;
-  config.oauth = document.getElementById("oauth").value;
-  config.obsPassword = document.getElementById("obsPassword").value;
+  document.getElementById("startBot").addEventListener("click", async () => {
+    config.channel = document.getElementById("channel").value;
+    config.clientId = document.getElementById("clientId").value;
+    config.oauth = document.getElementById("oauth").value;
+    config.obsPassword = document.getElementById("obsPassword").value;
 
-  if (!config.oauth || !config.channel || !config.clientId) {
-    alert("Merci de remplir tous les champs !");
-    return;
-  }
+    if (!config.oauth || !config.channel || !config.clientId) {
+      alert("Merci de remplir tous les champs !");
+      return;
+    }
 
-  await ipcRenderer.invoke("save-config", config);
-  await ipcRenderer.invoke("start-bot", config);
-  alert("Bot lancé ! Tapez une commande dans le chat.");
+    await window.electronAPI.saveConfig(config);
+    await window.electronAPI.startBot(config);
+    alert("Bot lancé ! Tapez une commande dans le chat.");
+  });
 });
 
 loadConfig().then(() => {
