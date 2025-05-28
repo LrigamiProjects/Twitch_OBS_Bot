@@ -1,0 +1,43 @@
+{
+  "name": "twitch-postit-bot",
+  "version": "1.0.0",
+  "description": "Bot Twitch pour afficher des sources OBS avec des commandes personnalisées",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.monnom.scenesbot",
+    "productName": "Scenes Twitch Bot",
+    "files": [
+      "**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": "nsis",
+      "forceCodeSigning": false
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "ton-user-github",
+      "repo": "ton-repo"
+    }
+  },
+  "dependencies": {
+    "@twurple/auth": "^6.0.0",
+    "@twurple/chat": "^6.0.0",
+    "electron-updater": "^6.6.2",
+    "obs-websocket-js": "^5.0.0"
+  },
+  "devDependencies": {
+    "electron": "^36.3.1",
+    "electron-builder": "^26.0.12"
+  },
+  "author": "Toi :)",
+  "license": "MIT",
+  "keywords": []
+}
