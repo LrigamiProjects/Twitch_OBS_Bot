@@ -23,8 +23,8 @@
     },
     "publish": {
       "provider": "github",
-      "owner": "Lrigami",
-      "repo": "Code_Mania/Twitch_OBS_Bot"
+      "owner": "LrigamiProjects",
+      "repo": "Twitch_OBS_Bot"
     }
   },
   "dependencies": {
