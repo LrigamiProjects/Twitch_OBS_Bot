@@ -4,7 +4,18 @@ let config = {
   channel: "",
   obsPassword: "",
   scenes: [],
+  hasSeenTutorial: false
 };
+
+function isValidConfig(config) {
+  return (
+    typeof config.channel === 'string' &&
+    typeof config.clientId === 'string' &&
+    typeof config.oauth === 'string' &&
+    typeof config.obsPassword === 'string' &&
+    Array.isArray(config.scenes)
+  );
+}
 
 async function loadConfig() {
   const saved = await window.electronAPI.getConfig();
@@ -15,6 +26,12 @@ async function loadConfig() {
     document.getElementById("oauth").value = config.oauth ?? "";
     document.getElementById("obsPassword").value = config.obsPassword ?? "";
     renderSceneTable();
+  }
+
+  if (!config.hasSeenTutorial) {
+    showTutorialPopup();
+    config.hasSeenTutorial = true;
+    await window.electronAPI.saveConfig(config);
   }
 }
 
@@ -72,6 +89,17 @@ function renderSceneTable() {
   });
 }
 
+function showTutorialPopup() {
+  const modal = document.getElementById("tutorialModal");
+  const closeBtn = document.getElementById("closeTutorial");
+
+  modal.classList.remove("hidden");
+
+  closeBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+}
+
 window.updateScene = (index, field, value) => {
   config.scenes[index][field] = value;
   window.electronAPI.saveConfig(config);
@@ -96,8 +124,8 @@ window.addEventListener("DOMContentLoaded", () => {
     config.oauth = document.getElementById("oauth").value;
     config.obsPassword = document.getElementById("obsPassword").value;
 
-    if (!config.oauth || !config.channel || !config.clientId) {
-      alert("Merci de remplir tous les champs !");
+    if (!isValidConfig(config)) {
+      alert("Merci de remplir correctement tous les champs (Client ID, OAuth et Nom de chaîne).");
       return;
     }
 
@@ -106,6 +134,7 @@ window.addEventListener("DOMContentLoaded", () => {
     alert("Bot lancé ! Tapez une commande dans le chat.");
   });
 
+  document.getElementById("helpButton").addEventListener("click", showTutorialPopup);
 });
 
 loadConfig().then(() => {
