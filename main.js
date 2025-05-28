@@ -2,6 +2,19 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path');
 const fs = require('fs');
 const { autoUpdater } = require('electron-updater');
+const { exec } = require('child_process');
+
+function checkNodeInstalled() {
+  return new Promise((resolve) => {
+    exec('node -v', (error, stdout) => {
+      if (error) {
+        resolve(false);
+      } else {
+        resolve(true); 
+      }
+    });
+  });
+}
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -25,6 +38,11 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
+
+ipcMain.handle("check-node-installed", async () => {
+  const isInstalled = await checkNodeInstalled();
+  return isInstalled;
+});
 
 ipcMain.handle("get-config", async () => {
   const configPath = path.join(app.getPath("userData"), "config.json");

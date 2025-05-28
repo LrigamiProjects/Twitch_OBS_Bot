@@ -111,7 +111,16 @@ window.removeScene = (index) => {
   renderSceneTable();
 };
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
+  const isNodeInstalled = await window.electronAPI.checkNodeInstalled();
+
+  if (!isNodeInstalled) {
+    const install = confirm("Node.js n'est pas installé sur ce PC et est nécessaire pour le bon fonctionnement de l'application. Souhaitez-vous ouvrir la page d'installation ?");
+    if (install) {
+      window.open("https://nodejs.org/", "_blank");
+    }
+  }
+  
   document.getElementById("addScene").addEventListener("click", () => {
     config.scenes.push({ command: "", scene: "", source: "" });
     window.electronAPI.saveConfig(config);
