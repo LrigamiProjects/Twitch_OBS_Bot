@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
   script-src 'self';
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  style-src 'self' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;">
   <title>Twitch OBS Bot</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +16,7 @@
 </head>
 <body>
   <h1>Mes Infos</h1>
+  <button id="helpButton" title="Aide" class="help-btn">i</button>
   <img src="robot.png" alt="robot icon">
 
   <div>
@@ -33,7 +34,7 @@
     </div>
     <div class="infos">    
       <label for="obsPassword">Mot de passe OBS WebSocket&nbsp;:&nbsp;</label>
-      <input id="obsPassword" />
+      <input type="password" id="obsPassword" />
     </div>
   </div>
 
@@ -57,7 +58,25 @@
     </div>
   </div>
 
-    <button id="startBot">Lancer le bot</button>
+  <button id="startBot">Lancer le bot</button>
+
+  <!-- Tutorial -->
+
+  <div id="tutorialModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Bienvenue !</h2>
+      <p>Voici comment configurer l'application&nbsp;:&nbsp;</p>
+      <ul>
+        <li>Pour obtenir votre <span class="bold">Twitch Client ID</span> et le  <span class="bold">OAuth Token</span>, rendez-vous sur ce site&nbsp;:&nbsp;<a href="https://twitchtokengenerator.com/" target="_blank">Twitch Token Generator</a>.</li>
+        <li>Sélectionner les permissions dont votre bot aura besoin (a minima  <span class="bold">"chat:read"</span> et  <span class="bold">"chat:edit"</span>), puis validez.</li>
+        <li>La page devrait se recharger et afficher trois champs remplis&nbsp;:&nbsp;"Access Token", "Refresh Token" et "Client ID". Rentrez la clé générée pour  <span class="bold">"Access Token" dans "OAuth Twitch"</span>, et celle du  <span class="bold">"Client ID" dans "Client ID Twitch"</span>.</li>
+        <li>Pour obtenir votre  <span class="bold">mot de passe OBS WebSocket</span>&nbsp;:&nbsp;C'est celui qui est défini dans les paramètres OBS (plugin WebSocket). Attention, si votre version d'OBS Studio est inférieure à la 28, alors il faudra préinstaller le WebSocket.</li>
+      </ul>
+      <p>Vous pouvez maintenant ajouter des scènes avec des commandes et les déclencher via le chat Twitch&nbsp;!</p>
+      <button id="closeTutorial">Compris&nbsp;!</button>
+    </div>
+</div>
+
 
   <script src="renderer.js"></script>
 </body>
