@@ -1,0 +1,38 @@
+:root {
+    --twitch-color : #9046ff;
+    --border-color: #0f094f;
+    --white: #fff;
+}
+
+body { 
+    font-family: sans-serif; 
+    margin: 20px; 
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+input, button, select { 
+    margin: 5px; 
+}
+
+table { 
+    width: 100%; 
+    margin-top: 15px; 
+    border-collapse: collapse; 
+}
+
+td, th { 
+    border: 1px solid #ccc; 
+    padding: 8px; 
+}
+
+.scene-row input { 
+    width: 90%; 
+}
+
+img:first-of-type {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Twitch OBS Bot</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Mes Infos</h1>
+  <img src="robot.png" alt="robot icon">
+
+  <div>
+    <label>Nom de la chaîne :</label>
+    <input id="channel" /><br />
+    <label>Client ID Twitch :</label>
+    <input id="clientId" /><br />
+    <label>OAuth Twitch :</label>
+    <input id="oauth" placeholder="oauth:xxxxxxxx" /><br />
+    <label>Mot de passe OBS WebSocket :</label>
+    <input id="obsPassword" /><br />
+  </div>
+
+  <img src="clapet.png" alt="clapet de cinéma">
+  <div>
+    <p>PRODUCTION</p>
+    <p>DIRECTOR</p>
+    <table id="sceneTable">
+      <thead>
+        <tr>
+          <th>Commande</th>
+          <th>Scène</th>
+          <th>Source</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="sceneList"></tbody>
+    </table>
+
+    <button style="cursor: pointer" id="addScene">Ajouter une scène</button>
+  </div>
+
+    <button style="cursor: pointer" id="startBot">Lancer le bot</button>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
