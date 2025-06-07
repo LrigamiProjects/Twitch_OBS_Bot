@@ -1,17 +1,19 @@
 let config = {
   clientId: "",
-  oauth: "",
+  clientSecret: "",
   channel: "",
   obsPassword: "",
   scenes: [],
   hasSeenTutorial: false
 };
 
+console.log("renderer.js ok");
+
 function isValidConfig(config) {
   return (
     typeof config.channel === 'string' &&
     typeof config.clientId === 'string' &&
-    typeof config.oauth === 'string' &&
+    typeof config.clientSecret === 'string' &&
     typeof config.obsPassword === 'string' &&
     Array.isArray(config.scenes)
   );
@@ -23,7 +25,7 @@ async function loadConfig() {
     config = saved;
     document.getElementById("channel").value = config.channel ?? "";
     document.getElementById("clientId").value = config.clientId ?? "";
-    document.getElementById("oauth").value = config.oauth ?? "";
+    document.getElementById("clientSecret").value = config.clientSecret ?? "";
     document.getElementById("obsPassword").value = config.obsPassword ?? "";
     renderSceneTable();
   }
@@ -36,7 +38,7 @@ async function loadConfig() {
 }
 
 function setupAutoSave() {
-  ["clientId", "oauth", "channel", "obsPassword"].forEach((id) => {
+  ["clientId", "clientSecret", "channel", "obsPassword"].forEach((id) => {
     const input = document.getElementById(id);
     input.addEventListener("input", () => {
       config[id] = input.value;
@@ -66,10 +68,24 @@ function renderSceneTable() {
     tdScene.appendChild(inputScene);
 
     const tdSource = document.createElement("td");
-    tdSource.classList.add("last-input");
+    tdSource.classList.add("input");
     const inputSource = document.createElement("input");
     inputSource.value = scene.source;
     inputSource.addEventListener("input", (e) => updateScene(index, "source", e.target.value));
+    tdSource.appendChild(inputSource);
+
+    const tdDelai = document.createElement("td");
+    tdDelai.classList.add("last-input");
+    const inputDelai = document.createElement("input");
+    inputDelai.type = "number";
+    inputDelai.min = "0";
+    inputDelai.placeholder = "Expire après (sec)";
+    inputDelai.value = scene.delai !== undefined ? scene.delai : "";
+    inputDelai.addEventListener("input", (e) => {
+      const val = e.target.value.trim();
+      updateScene(index, "delai", val === "" ? null : parseInt(val, 10));
+    });
+    tdDelai.appendChild(inputDelai);
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete";
@@ -77,13 +93,12 @@ function renderSceneTable() {
     deleteBtn.addEventListener("click", () => {
       removeScene(index);
     });
-
-    tdSource.appendChild(inputSource);
-    tdSource.appendChild(deleteBtn);
+    tdDelai.appendChild(deleteBtn);
 
     tr.appendChild(tdCommand);
     tr.appendChild(tdScene);
     tr.appendChild(tdSource);
+    tr.appendChild(tdDelai);
 
     sceneList.appendChild(tr);
   });
@@ -103,11 +118,13 @@ function showTutorialPopup() {
 window.updateScene = (index, field, value) => {
   config.scenes[index][field] = value;
   window.electronAPI.saveConfig(config);
+  console.log("config scenes:", config.scenes);
 };
 
 window.removeScene = (index) => {
   config.scenes.splice(index, 1);
   window.electronAPI.saveConfig(config);
+  console.log("config scenes:", config.scenes);
   renderSceneTable();
 };
 
@@ -122,7 +139,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
   
   document.getElementById("addScene").addEventListener("click", () => {
-    config.scenes.push({ command: "", scene: "", source: "" });
+    config.scenes.push({ command: "", scene: "", source: "", delai: null });
     window.electronAPI.saveConfig(config);
     renderSceneTable();
   });
@@ -130,11 +147,11 @@ window.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("startBot").addEventListener("click", async () => {
     config.channel = document.getElementById("channel").value;
     config.clientId = document.getElementById("clientId").value;
-    config.oauth = document.getElementById("oauth").value;
+    config.clientSecret = document.getElementById("clientSecret").value;
     config.obsPassword = document.getElementById("obsPassword").value;
 
     if (!isValidConfig(config)) {
-      alert("Merci de remplir correctement tous les champs (Client ID, OAuth et Nom de chaîne).");
+      alert("Merci de remplir correctement tous les champs (Client ID, clientSecret et Nom de chaîne).");
       return;
     }
 
