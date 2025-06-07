@@ -57,6 +57,33 @@ input {
     align-items: center;
 }
 
+.input-group {
+    position: relative;
+    left: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.input-group button {
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    border: none;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.input-group button:hover {
+    background-color: #dac3fd;
+}
+
+.input-group button span {
+    font-size: 18px;
+}
+
 table { 
     width: 100%; 
     border-collapse: collapse; 
@@ -153,19 +180,20 @@ img:last-of-type {
 /* Tutorial */
 
 .modal {
-    position: fixed;
-    top: 0; 
-    left: 0;
+    position: absolute;
+    top: 0px;
     padding-top: 40px;
-    width: 100vw; 
-    height: 100vh;
+    width: 100%; 
+    min-width: 700px;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
     display: flex; 
-    justify-content: center; 
     z-index: 3;
 }
 
 .modal-content {
+    position: relative;
+    left: calc(100% - 700px);
     background-image: url("./dialogue.png");
     border-radius: 10px;
     padding: 20px;
@@ -186,9 +214,15 @@ img:last-of-type {
   align-self: center;
 }
 
+.modal-content ul {
+    list-style: none;
+    padding: 0;
+    text-align: justify;
+}
+
 .modal-content button {
     width: 200px;
-    height: 50px;
+    height: 80px;
     font-family: var(--robotic), Arial, Helvetica, sans-serif;
     font-size: 18px;
     background-color: var(--secondary-twitch-color);
