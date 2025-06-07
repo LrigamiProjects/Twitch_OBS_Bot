@@ -11,8 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <link rel="stylesheet" href="styles.css">
+  <script src="toogle-password.js"></script>
 </head>
 <body>
   <h1>Mes Infos</h1>
@@ -24,17 +25,29 @@
       <label for="channel">Nom de la chaîne&nbsp;:&nbsp;</label>
       <input id="channel" placeholder="MaChaîneTwitch" />
     </div>
+
     <div class="infos">    
       <label for="clientId">Client ID Twitch&nbsp;:&nbsp;</label>
-      <input id="clientId" placeholder="xXXxXXXXXxXX" />
+      <div class="input-group">
+        <input type="password" id="clientId" placeholder="xXXxXXXXXxXX" />
+        <button type="button" class="toggle-password" data-target="clientId"><span class="material-symbols-outlined">visibility_off</span></button>
+      </div>
     </div>
+
     <div class="infos">    
-      <label for="oauth">OAuth Twitch&nbsp;:&nbsp;</label>
-      <input id="oauth" placeholder="xXXxXXXXXxXX" />
+      <label for="clientSecret">Client Secret Twitch&nbsp;:&nbsp;</label>
+      <div class="input-group">
+        <input type="password" id="clientSecret" placeholder="xXXxXXXXXxXX" />
+        <button type="button" class="toggle-password" data-target="clientSecret"><span class="material-symbols-outlined">visibility_off</span></button>
+      </div>
     </div>
+
     <div class="infos">    
       <label for="obsPassword">Mot de passe OBS WebSocket&nbsp;:&nbsp;</label>
-      <input type="password" id="obsPassword" />
+      <div class="input-group">
+        <input type="password" id="obsPassword" />
+        <button type="button" class="toggle-password" data-target="obsPassword"><span class="material-symbols-outlined">visibility_off</span></button>
+      </div>
     </div>
   </div>
 
@@ -48,6 +61,7 @@
           <th>Commande</th>
           <th>Scène</th>
           <th>Source</th>
+          <th>Expire après (sec)</th>
         </tr>
       </thead>
       <tbody id="sceneList"></tbody>
@@ -67,16 +81,17 @@
       <h2>Bienvenue !</h2>
       <p>Voici comment configurer l'application&nbsp;:&nbsp;</p>
       <ul>
-        <li>Pour obtenir votre <span class="bold">Twitch Client ID</span> et le  <span class="bold">OAuth Token</span>, rendez-vous sur ce site&nbsp;:&nbsp;<a href="https://twitchtokengenerator.com/" target="_blank">Twitch Token Generator</a>.</li>
-        <li>Sélectionner les permissions dont votre bot aura besoin (a minima  <span class="bold">"chat:read"</span> et  <span class="bold">"chat:edit"</span>), puis validez.</li>
-        <li>La page devrait se recharger et afficher trois champs remplis&nbsp;:&nbsp;"Access Token", "Refresh Token" et "Client ID". Rentrez la clé générée pour  <span class="bold">"Access Token" dans "OAuth Twitch"</span>, et celle du  <span class="bold">"Client ID" dans "Client ID Twitch"</span>.</li>
+        <li>Pour obtenir votre <span class="bold">Client ID</span> et le <span class="bold">Client Secret</span> Twitch, rendez-vous sur ce site&nbsp;:&nbsp;<a href="https://dev.twitch.tv/" target="_blank">Twitch Developers</a>.</li>
+        <li>Allez dans l'onglet "Applications" et enregistrez votre application.</li>
+        <li>Donnez-lui le nom que vous souhaitez. Entrez <span class="bold">"http://localhost"</span> dans le champ OAuth Redirect URLs, et sélectionnez la catégorie <span class="bold">"Chat Bot"</span>, et le Client Type <span class="bold">"Confidential"</span>.</li>
+        <li>Le Client ID s'affichera. Entrez-le dans le champ <span class="bold">"Client ID Twitch"</span> de l'application.</li>
+        <li>Cliquez ensuite sur <span class="bold">"New Secret"</span> pour générer un nouveau Client Secret. <span class="bold">Attention, le client secret est une information sensible, ne le divulguez jamais.</span></li>
         <li>Pour obtenir votre  <span class="bold">mot de passe OBS WebSocket</span>&nbsp;:&nbsp;C'est celui qui est défini dans les paramètres OBS (plugin WebSocket). Attention, si votre version d'OBS Studio est inférieure à la 28, alors il faudra préinstaller le WebSocket.</li>
       </ul>
-      <p>Vous pouvez maintenant ajouter des scènes avec des commandes et les déclencher via le chat Twitch&nbsp;!</p>
+      <p>Vous pouvez maintenant ajouter des sources de scène avec des commandes et les activer via le chat Twitch&nbsp;!</p>
       <button id="closeTutorial">Compris&nbsp;!</button>
     </div>
-</div>
-
+  </div>
 
   <script src="renderer.js"></script>
 </body>
