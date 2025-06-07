@@ -1,6 +1,6 @@
 {
   "name": "twitch-postit-bot",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Bot Twitch pour afficher des sources OBS avec des commandes personnalisées",
   "main": "main.js",
   "scripts": {
