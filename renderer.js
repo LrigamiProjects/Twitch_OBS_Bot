@@ -161,6 +161,30 @@ window.addEventListener("DOMContentLoaded", async () => {
   });
 
   document.getElementById("helpButton").addEventListener("click", showTutorialPopup);
+
+  document.getElementById('updateStatus').addEventListener('click', () => {
+    const updateModal = document.getElementById('updateStatus');
+    updateModal.classList.add('hidden');
+  });
+});
+
+window.electronAPI.onUpdateMessage((message) => {
+  console.log('Update status:', message);
+
+  const updateModal = document.getElementById('updateStatus');
+
+  // Affiche le message dans la modale
+  updateModal.innerText = message;
+
+  // Affiche la modale si ce n’est pas déjà visible
+  if (updateModal.classList.contains('hidden')) {
+    updateModal.classList.remove('hidden');
+
+    // Auto-hide après 10 secondes (optionnel)
+    setTimeout(() => {
+      updateModal.classList.add('hidden');
+    }, 10000);
+  }
 });
 
 loadConfig().then(() => {

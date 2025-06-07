@@ -263,3 +263,26 @@ img:last-of-type {
 .bold {
     font-weight: bold;
 }
+
+/* updates */
+
+#updateStatus {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(40, 40, 40, 0.95);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+  z-index: 9999;
+  max-width: 90%;
+  text-align: center;
+  cursor: pointer;
+}
+
+#updateStatus.hidden {
+  display: none;
+}

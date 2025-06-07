@@ -5,4 +5,5 @@ contextBridge.exposeInMainWorld("electronAPI", {
   getConfig: () => ipcRenderer.invoke("get-config"),
   saveConfig: (config) => ipcRenderer.invoke("save-config", config),
   startBot: (config) => ipcRenderer.invoke("start-bot", config),
+  onUpdateMessage: (callback) => ipcRenderer.on('update-message', (_, message) => callback(message))
 });
