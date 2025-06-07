@@ -24,7 +24,6 @@ function createWindow() {
       contextIsolation: true,
     }
   });
-  win.webContents.openDevTools();
   win.loadFile('index.html');
 }
 
