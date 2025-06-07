@@ -26,6 +26,7 @@ const createWindow = () => {
         contextIsolation: true,
     }
   })
+  win.webContents.openDevTools();
 
   win.loadFile('index.html')
 }
@@ -56,8 +57,23 @@ ipcMain.handle("save-config", async (_, config) => {
   return true;
 })
 
-ipcMain.handle("start-bot", (_, config) => {
+ipcMain.handle("start-bot", async (_, config) => {
+  const { startAuthFlow } = require("./auth-setup");
   const bot = require("./bot");
-  bot.start(config);
-  return true;
-})
+
+  try {
+    console.log("Authentification en cours...");
+    await startAuthFlow({
+      clientId: config.clientId,
+      clientSecret: config.clientSecret
+    });
+    console.log("Authentification réussie !");
+
+    console.log("Démarrage du bot...");
+    bot.start(config);
+    return true;
+  } catch (err) {
+    console.error("Échec de l'authentification :", err);
+    return false;
+  }
+});
