@@ -60,6 +60,9 @@ async function exchangeCodeForToken({ code, clientId, clientSecret, redirectUri 
 
     const response = await fetch(tokenUrl, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
       body: params
     });
 
@@ -88,14 +91,15 @@ async function exchangeCodeForToken({ code, clientId, clientSecret, redirectUri 
     return await response.json();
 
   } catch (err) {
-    console.error("Erreur exchangeCodeForToken:", err);
+    console.error("❌ Erreur exchangeCodeForToken:", err.message);
+    if (err.stack) console.error(err.stack);
     throw err;
   }
 }
 
 async function startAuthFlow(userConfig) {
   const { clientId, clientSecret } = userConfig;
-  const redirectUri = 'http://localhost';
+  const redirectUri = 'http://localhost:5137/';
   const scopes = ['chat:read', 'chat:edit', "user:read:broadcast", "user:read:email"];
   const tokenPath = path.join(__dirname, 'tokens.json');
 
@@ -148,7 +152,7 @@ async function startAuthFlow(userConfig) {
       }
     });
 
-    server.listen(80, () => {
+    server.listen(5137, () => {
       const authUrl = createAuthUrl({ clientId, redirectUri, scopes });
       console.log("➡️ Ouverture de la fenêtre d'auth...");
       authWindow = new BrowserWindow({
