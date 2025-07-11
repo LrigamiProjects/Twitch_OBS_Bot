@@ -99,9 +99,11 @@ async function exchangeCodeForToken({ code, clientId, clientSecret, redirectUri 
 
 async function startAuthFlow(userConfig) {
   const { clientId, clientSecret } = userConfig;
-  const redirectUri = 'http://localhost:5137/';
+  const redirectUri = 'http://localhost:5137';
   const scopes = ['chat:read', 'chat:edit', "user:read:broadcast", "user:read:email"];
-  const tokenPath = path.join(__dirname, 'tokens.json');
+  const { app } = require('electron');
+  const tokenPath = path.join(app.getPath('userData'), 'tokens.json');
+
 
   return new Promise((resolve, reject) => {
     let authWindow;
@@ -133,7 +135,7 @@ async function startAuthFlow(userConfig) {
           console.log('✅ Token + userId sauvegardés dans tokens.json');
 
           res.writeHead(200, { 'Content-Type': 'text/html' });
-          fs.createReadStream(path.join(__dirname, 'success.html')).pipe(res);
+          res.end(`<html><body><h1>✅ Authentification réussie</h1></body></html>`);
 
           setTimeout(() => {
             if (authWindow) authWindow.close();
