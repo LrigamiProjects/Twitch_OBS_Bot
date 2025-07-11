@@ -41,7 +41,12 @@ app.whenReady().then(() => {
   autoUpdater.logger.transports.file.level = 'info';
 
   // Check for updates and notify user if available
-  autoUpdater.checkForUpdatesAndNotify();
+  try {
+    autoUpdater.checkForUpdatesAndNotify();
+  } catch (err) {
+    console.error("❌ Erreur lors de la recherche de mise à jour :", err);
+    sendStatusToWindow("Erreur de mise à jour : " + err.message);
+  }
 
   // Events pour informer la fenêtre sur le processus de mise à jour
   autoUpdater.on('checking-for-update', () => {
@@ -72,6 +77,8 @@ app.whenReady().then(() => {
       if (result.response === 0) { // bouton 'Redémarrer maintenant'
         autoUpdater.quitAndInstall();
       }
+    }).catch(err => {
+      console.error("Erreur lors de l'affichage du dialogue de mise à jour :", err);
     });
   });
 });
